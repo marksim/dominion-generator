@@ -20,7 +20,7 @@ describe Generator do
     it "generates a set of distinct cards" do
       kingdom = generator.randomize
       expect(kingdom.cards.map(&:name).uniq.count).to eql 10
-    end
+   end
 
     it "generates a random set of cards" do
       kingdom = generator.randomize.cards.sort_by(&:name)
@@ -57,6 +57,33 @@ describe Generator do
       alchemy_set = generator.randomize(limit: [:alchemy]).cards
       kingdom = Kingdom.new(simple_set[0..8] + [alchemy_set.shuffle.first], alchemy_picking: true)
       expect(kingdom).to_not be_valid
+    end
+
+    it "kingdoms with more than 5 alchemy cards and more than one set are invalid" do
+      simple_set = generator.randomize(limit: [:dominion, :prosperity]).cards
+      alchemy_set = generator.randomize(limit: [:alchemy]).cards
+      kingdom = Kingdom.new(simple_set[0..3] + alchemy_set[0..5], alchemy_picking: true)
+      expect(kingdom).to_not be_valid
+    end
+
+    it "kingdoms with 3 alchemy cards are valid" do
+      simple_set = generator.randomize(limit: [:dominion, :prosperity]).cards
+      alchemy_set = generator.randomize(limit: [:alchemy]).cards
+      kingdom = Kingdom.new(simple_set[0..6] + alchemy_set[0..2], alchemy_picking: true)
+      expect(kingdom).to be_valid
+    end
+
+    it "kingdoms with 0 alchemy cards are valid" do
+      simple_set = generator.randomize(limit: [:dominion, :prosperity]).cards
+      kingdom = Kingdom.new(simple_set, alchemy_picking: true)
+      expect(kingdom).to be_valid
+    end
+
+    it "kingdoms genrated with alchemy picking should have 0, 3, 4 or 5 alchemy cards in them" do
+      30.times do
+        kingdom = generator.randomize(alchemy_picking: true) 
+        expect([0, 3, 4, 5]).to include(kingdom.card_count(:alchemy))
+      end
     end
   end
 

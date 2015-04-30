@@ -34,7 +34,7 @@ class Kingdom
 
   def valid?
     if @options[:alchemy_picking]
-      card_count(:alchemy) >= 3 && card_count(:alchemy) <= 5
+      card_count(:alchemy) == 0 || card_count(:alchemy) >= 3 && card_count(:alchemy) <= 5
     else
       true
     end

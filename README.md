@@ -1,7 +1,7 @@
 # Features
 
 * [x] Select sets owned
-* [ ] Use Alchemy Picking Rules (ensure that if any Alchemy cards are used, that at least 3 and at most 5 are used)
+* [x] Use Alchemy Picking Rules (ensure that if any Alchemy cards are used, that at least 3 and at most 5 are used)
 * [x]  Randomize the use of Platinums/Colonies and Shelters if you have Prosperity or Dark Ages selected (respectively)
 * [ ] Store and show setup steps based on cards selected (i.e. Spoils, Ruins, Curses, Coins, Victory Tokens, Mats, Prizes, etc)
 * [ ] Generate/Pick Bane card for Young Witch
